@@ -1,0 +1,238 @@
+Q-1: What is the IP of the organization&DNS servers?
+
+Organization IP address: 
+
+- 192.168.1.10
+
+DNS servers IP addresses: 
+
+- 8.8.4.4 & 172.16.1.10
+
+
+
+Q-2: What is the name of the malicious file/s downloaded by the accountant? 
+
+Malicious File 1: 764796-1652561297.exe
+
+Malicious File 2: dotnettojs.hta
+
+I wrote "(http.request or tls.handshake.type eq 1)" command to the Wireshark and filtered the flow for downloaded files.
+
+Also I saw a technique and used it that Wireshark already provides us for export the objects. "File -> Export Objects -> HTTP"
+
+
+
+Q-3: What is the sha256 hash of the downloaded malicious file/s?
+
+Malicous 1: 764796-1652561297.exe
+SHA256: 77a398c870ad4904d06d455c9249e7864ac92dda877e288e5718b3c8d9fc6618
+
+Malicious 2: dotnettojs.hta
+SHA256: 64adf742707b89faa233c976e63338e5fb75eadd86d7d38139f2b5f4f32c7d72
+
+
+
+
+Q-4: What is the name of malware/s, according to BitDefender?
+
+Malware 1: Generic.Ransom.Hive.A.3532D023 (BitDefender)
+
+Malware 2: JS:Trojan.Agent.CSOU (Bitdefender)
+
+
+
+
+Q-5: What is the malware type of the malicious files?
+
+Malware 1: Hive Ransomware
+
+Malware 2: Trojan
+
+
+
+
+Q-6: What is the malware family of the malicious files?
+
+Malware 1's (Hive Ransomware) Malware Family: "MacOS/Filecoder"
+
+Malware 2's (Trojan) Malware Family: "JS/Agent"
+
+
+
+Q-7: What are used TTP/s according to the MITTRE ATT&CK framework for malicious files?
+
+
+INITIAL ACCESS
+
+	Phishing
+
+		- Phishing: Spearphishing Attachment (T1566.001)
+		- Phishing: Spearphishing Link (T1566.002)
+		- Domain Accounts (T1078.002)
+
+
+EXECUTION
+
+	Command and Scripting Interpreter
+
+		- Javascript (T1059.007)
+		- PowerShell (T1059.001)
+		- Visual Basic (T1059.005)
+		- Windows Command Shell (T1059.003)
+
+	Inter-Process Communication 
+
+		- Dynamic Data Exchange (T1559.002)
+		
+	User Execution
+
+		- Malicious File (T1204.002)
+		- Malicious Link (T1204.001)
+
+
+PERSISTENCE
+	
+	Valid Accounts
+		
+		- Domain Accounts (T1078.002) 
+
+
+PRIVILAGE ESCALATION
+	
+	Process Injection
+
+		- Dynamic-link Library Injection (T1055.001)
+	
+	Valid Accounts 
+		
+		- Domain Accounts (T1078.002)
+
+
+DEFENCE EVASION
+
+	Obfuscated Files or Information (T1027)
+	
+		- Software Packing (T1027.002)
+
+	Process Injection
+	
+		- Dynamic-link Library Injection (T1055.001)
+
+	Subvert Trust Controls 
+		
+		- Code Signing (T1553.002)
+		- Marok-of-the-Web Bypass (T1553.005)
+	
+	System Binary Proxy Execution
+	
+		- Msiexec (T1218.007)
+		- Rundll32 (T1218.011)
+		- Domain Accounts (T1078.002)
+
+
+CREDENTIAL ACCESS
+
+	Credentials from Password Stores
+
+		- Credentials from Web Browsers (T1555.003)
+	
+	Unsecured Credentials
+	
+		- Credentials in Files (T1552.001)
+
+
+DISCOVERY
+
+	Account Discovery
+	
+		- Email Account (T1087.003)
+
+	Permission Groups Discovery (T1069)
+
+
+
+COMMAND AND CONTROL
+
+	Application Layer Protocol 
+
+		- Web Protocols (T1071.001)
+
+	Dynamic Resolution
+
+		- Fast Flux DNS (T1568.001)
+
+	Ingress Tool Transfer (T1105)
+
+
+IMPACT
+	
+	Data Encrypted for Impact (T1486)
+
+
+I searched for Hive attack groups in MITTRE ATT&CK database. It leads me to the TA505(G0092/Hive0065) group and I investigate it's ATT&CK Navigation Layers to find TTP/s.
+
+References for TTP/s: 
+
+https://attack.mitre.org/groups/G0092/
+https://mitre-attack.github.io/attack-navigator//#layerURL=https%3A%2F%2Fattack.mitre.org%2Fgroups%2FG0092%2FG0092-enterprise-layer.json
+
+
+
+
+
+
+Q-8: What are the payloads for web application threats?
+
+
+First Payload --> action=mec_load_single_page&time=2)+AND+(SELECT+7710+FROM+(SELECT(SLEEP(5)))ondl)+AND+(9419%3d9419
+
+This payload is used in "http://192.168.1.10:80/page876475/wp-admin/admin-ajax.php?action=mec_load_single_page&time=2)+AND+(SELECT+7710+FROM+(SELECT(SLEEP(5)))ondl)+AND+(9419%3d9419"
+
+As we can see from the link, the attacker tried to perform a "TIME BASED BLIND SQL Injection" with "action=mec_load_single_page&time=2)+AND+(SELECT+7710+FROM+(SELECT(SLEEP(5)))ondl)+AND+(9419%3d9419" payload.
+
+Also the attacker tried to use XSS vulnerability beacause of "Ajax Load More" WordPress plugin for the Wordpress.
+
+These attacks could be for get access for Wordpress admin page and learn the admin credentials. 
+
+
+
+Second Payload --> %3Cscript%3EaIert(%27xss%27)%3C/script%3E
+
+This payload is used in "http://192.168.1.10:80/page451444/printenv.shtml?%3Cscript%3EaIert(%27xss%27)%3C/script%3E".
+
+As we can see from the link, the attacker use printenv command in the link that provides user-provided data without escaping and it's vulnerable to XSS attacks.
+
+Like I said it's vulnerable to XSS attacks and the attacker used "%3Cscript%3EaIert(%27xss%27)%3C/script%3E" payload to perform a XSS attack. This payload is a script for XSS attacks.
+
+
+
+Q-9: What are the affected products for web application threats?
+
+Ajax Load More WordPress Plugin, versions before 5.3.2
+
+Apache Tomcat 9.0.0.M1 to 9.0.0.17, 8.5.0 to 8.5.39 and 7.0.0 to 7.0.93
+
+
+Q-10: If it exists for web application threats, what are the CVE and CWE numbers of web application threats?
+
+CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
+CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')
+
+CVE-2019-0221  -->  CWE-79
+CVE-2021-24140 -->  CWE-89
+
+
+Other References:
+
+https://attack.mitre.org/
+https://cwe.mitre.org/data/definitions/89.html
+https://cwe.mitre.org/data/definitions/79.html
+https://www.cybersecurity-help.cz/vulnerabilities/18638/
+https://nvd.nist.gov/vuln/detail/CVE-2019-0221
+https://nvd.nist.gov/vuln/detail/CVE-2021-24140
+https://beaglesecurity.com/blog/vulnerability/time-based-blind-sql-injection.html
+https://wwws.nightwatchcybersecurity.com/2019/05/27/xss-in-ssi-printenv-command-apache-tomcat-cve-2019-0221/
+https://www.youtube.com/watch?v=a9eVf2uleaA
+https://www.youtube.com/watch?v=HsgJ7UNgcTM
+https://www.youtube.com/watch?v=a9eVf2uleaA
+https://www.youtube.com/watch?v=7iguG7va4l8
