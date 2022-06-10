@@ -1,0 +1,162 @@
+Answer 1:
+
+DoS attacks were especially used when multiple companies or organizations have been targeted by attackers for a large scale attack.
+DoS attacks are one of the best ways to disable a targeted system's functions for any purpose. 
+
+Attackers especially executes their DoS attacks that gained advantages from the vulnerabilities of DNS protocol.
+
+They targeted the DNS Protocol because of;
+
+1 - It is an "Open System"
+2 - It is "Connectionless"
+3 - It is "Stateless"
+4 - It has "Lack of Legitimacy Verification"
+
+Briefly;
+
+DNS systems are open systems that they having to accept all user requests unconditionally. 
+
+This is invaluable for the attacker beacuse the attack messages to the DNS server are not gonna look like suspicious DNS UDP requests so they are hard to be recognized by any denial of service protection. 
+
+If a single DNS server or Domain Name makes trouble to the other DNS systems, there is a high chance to failure of the other DNS servers as well as the targeted DNS server by the attackers. 
+
+
+
+
+Answer 2:
+
+Yes, there are some disadvantages and technical limitations for attacker. 
+
+DNS queries that went from the attacker, follows their way to the open DNS resolvers. Number of DNS resolvers that attacker be able to reach to them are a technical limitation in this attack. 
+
+The attackers botnets that will be use in the DNS Amplification DoS attack, if there are small numbers of bots in the botnet is also a disadvantage for the attacker. 
+
+UDP bundles are too huge to even consider communicating without being separated. Thus, while the aggressor is effective in altogether intensifying the DNS reactions when the parcels arrive at a specific size, they will get divided into more modest ones. This is a disadvantage for the attacker.
+
+Also this attack uses network bandwith between the attackers bots and the victim's server. If the network bandwith is somewhat limited by a couple of policies or rules, then the attacker may not be able to fill the whole bandwith with DNS queries.
+
+
+
+
+Answer 3: 
+
+Step 1 - For amplification attacks in DNS protocol, we need to find "open recursive DNS servers". To find open recursive DNS servers, I used Shodan (https://www.shodan.io/). 
+	 
+Step 2 - In Shodan, I wrote " port:"53" "Recursive: enabled" " parameters to search bar to find open recursive DNS servers all over the world.
+
+Step 3 - Then I got a list about open recursive DNS servers IP addresses, their locations and also the versions as well. 
+
+Thats it! I found the open recursive DNS servers and their IP addresses.   
+
+
+Vulnerability-1: A07:2021 – Identification and Authentication Failures
+
+Vulnerability-1 Reason: Because MySQL database uses default root user, and it's password ("p@ssw0rd1") is so easy to breakable with a brute force attack.
+
+Vulnerability-1 Mitigations: Do not ship or deploy with any default credentials, particularly for admin users. 
+
+     Align password length, complexity and rotation policies with NIST 800-63 B’s guidelines or other modern, evidence based password policies.   
+
+     Implement weak-password checks. For example, testing new or changed passwords against a list of the top 10000 worst passwords would be nice to prevent password vulnerabilities.
+
+
+
+
+Vulnerability-2: A02:2021 – Cryptographic Failures
+
+Vulnerability-2 Reason: Because this application uses an old and vulnerable DES encryption algorithm with deprecated cryptographic MD5 function. Also it uses static salt values for salting.
+
+Vulnerability-2 Mitigations: This application must use "DES3" encryption algorithm instead of DES encryption algorithm. 
+
+     Avoid deprecated cryptographic functions and padding schemes, such as MD5, SHA1. 
+  
+     Also the salt value must be globally unique and created randomly with "bcrypt" etc.
+
+
+
+
+Vulnerability-3: A07:2021 – Identification and Authentication Failures
+
+Vulnerability-3 Reason: Because this app returns session ID value via tokens if the login is succesful. (row 34)
+
+Vulnerability-3 Mitigations: Use a server-side, secure, built-in session manager that generates a new random session ID with high entropy after login. Session IDs should not be in the URL, be securely stored and invalidated after logout, idle, and absolute timeouts.
+   
+     
+
+
+Vulnerability-4: A03:2021 – Injection
+
+Vulnerability-4 Reason: Because, in token_check function, the application uses untrusted data in the construction of the vulnerable SQL call. (row 55)  
+
+Vulnerability-4 Mitigations: We could use parametrized queries, or made input validation etc. to prevent untrusted data. 
+
+
+
+
+Vulnerability-5: A07:2021 – Identification and Authentication Failures
+
+Vulnerability-5 Reason: Because, username and password values included in GET method while login and they didn't sent to HTTPS endpoints. Also username and password values will be shown at URL when login to app (row 11)
+
+Vulnerability-5 Mitigations: Prevent session tokens from being included in URLs or accepted as URL parameters. Don't send password values in GET methods. Be sure to sent them to HTTPS endpoints.
+
+     # Route for handling the login page logic / This code shows an example of how to handle a login page logic.
+	@app.route('/login', methods=['GET', 'POST'])
+	def login():
+    		error = None
+    		if request.method == 'POST':
+        		if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+            		error = 'Invalid Credentials. Please try again.'
+        	else:
+            	return redirect(url_for('home'))
+    		return render_template('login.html', error=error)
+
+
+
+
+Vulnerabilty-6: A09:2021 – Security Logging and Monitoring Failures
+
+Vulnerabilty-6 Reason: Because, as you can see from the application code, there is no logging about logins, failed logins etc. 
+
+Vulnerability-6 Mitigations: Ensure all login, access control, and server-side input validation failures can be logged with sufficient user context to identify suspicious or malicious accounts and held for enough time to allow delayed forensic analysis.
+
+	These logs are very important for attack analysis and they provides invaluable informations for SoC teams.
+
+	
+
+
+Vulnerability-7: A02:2021 – Cryptographic Failures
+
+Vulnerability-7 Reason: Because, encryption and decryption functions of DES algotihms uses CBC(Cipher Block Chaining). CBC has vulnerabilities like allow an attacker to decrypt data encrypted by symmetric block algorithms, such as AES and 3DES, using no more than 4096 attempts per block of data. These vulnerabilities make use of the fact that block ciphers are most frequently used with verifiable padding data at the end.
+
+Vulnerability-7 Mitigations: Firstly, any data that has confidentiality needs be transmitted over Transport Layer Security (TLS), the successor to Secure Sockets Layer (SSL).
+
+	Be certain that each usage at each layer of a symmetric block cipher algorithm, in CBC mode incorporate the use of a secret-keyed data integrity check (an asymmetric signature, an HMAC, or to change the cipher mode to an authenticated encryption (AE) mode).
+
+
+
+
+Vulnerability-8: A02:2021 – Cryptographic Failures
+
+Vulnerability-8 Reason: While getting /index page, some sensitive information like decrypted value of the token shown in html codes. (row 101)
+
+Vulnerability-8 Mitigations: Do not shown any sensitive information especially decrypted values in html codes. They could be inspected with browser features.
+
+
+
+
+Vulnerability-9: A03:2021 – Injection
+
+Vulnerability-9 Reason: At row 22 in app.py, there is no filtering about the untrusted data. It just get the username and password that not encrypted from database without any parametrized SQL queries. 
+
+Vulnerability-9 Mitigations: We could use parametrized queries, or made input validation etc. to prevent untrusted data. Also, before using the sensitive information like the password data must be encypted before stored in the database.
+
+
+
+
+Vulnerability-10: A02:2021 – Cryptographic Failures
+
+Vulnerability-10 Reason: In dec_encrypt and des_decrypt functions, the generated key values are gonna be always same because of the static and very easy password value with the same static salt values.
+
+	The app uses same password and salt values to encrypt and decrypt. 
+
+Vulnerability-10 Mitigations: Use randomized salt values to encrypt the data. Don't use password values in functions, especially in plaintext format. 
