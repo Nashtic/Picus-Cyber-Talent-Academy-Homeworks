@@ -1,0 +1,80 @@
+What are the problems that the users are facing in Security Operations Center? Please write at most five prioritized issues in order of importance (high to low).
+You should give the following information about each problem:
+- What is the problem?
+- What makes the problem important?
+- How the problem can be solved?
+- What are the possible results and changes in the organization using the solution?
+
+Each area should be at most 300 words.
+
+
+
+
+
+Problem & Solution & Impact 1: 
+
+- SOC Alert Fatigue (Alert Overload)
+
+- SIEM like automated log systems and threat management systems logs huge numbers of events. Every log have an alert potential so thousands of thousands alerts produced everyday.
+  SOC teams race against time when an incident happens. They want to find the alerts related to these malicious events in a very short time, so finding correct alerts is crucial for SOC teams . 
+
+- To solve this problem, SOC team members can configure or develop their alert rules more carefully stick with Alert Rule Development Cycle. Prioritizing alerts is the most important step to solve this problem.
+  They could also use BAS technologies.
+
+- After these solutions, SIEM systems filters the alert noises more efficiently and SOC members can deal with high-prioritized alerts instantly.
+
+
+Problem & Solution & Impact 2: 
+
+- Lack of Information About the Infrastructure
+
+- Infrastructure of a system is so important because vulnerabilities are generally results of infrastructure designs.
+  If system owners doesn't share their infrastructure informations (important assets within the network, up-to-date list of firewall rules and network diagrams) with SOC teams, it is possible that SOC teams may not be able to respond to the incidents quickly or they can't secure critical parts of a system.
+
+- This problem can be solved easily if system owner gives the infrastructure informations. Security company tells the importance about these informations to system owner. System owner and security company can make a privacy agreement.    
+
+- After this solution, SOC team knows the important parts of a system, now they can develop and implement security measurements more efficiently and they can respond to incidents without any delays. 
+
+
+Problem & Solution & Impact 3: 
+
+- Threat Intelligence Gaps and Lack of IOCs
+
+- Every SOC needs to have a high-quality threat intel feeds with well created lists of IOCs (Indicators of Compromise).
+  But we know that there are millions of alerts generated per day and even automated systems can't handle all these alerts.
+  At a time like this, APTs or advanced threat actors can sneak in to the systems without any notice. 
+
+- SOC teams must use proactive threat hunting methods for APTs and advanced threat actors that they could be laying down in the systems freely.
+  They can use TTPs from MITTRE ATT&CK to learn behaviours of APTs. After that, they can perform threat huntings more efficently.
+  Also SOC teams must have skilled Threat Hunters in their teams.  
+
+- After these solutions, SOC teams can detect APTs or block them before they in. Also after every threat hunting, they can produce new IOCs.
+
+
+Problem & Solution & Impact 4: 
+
+- Management of Numerous Security Tools
+
+- A substential number of organizations buys different security tools to idenfity all possible threats. But these tools generally tend to be seperated from one another or they have different kind of restrictions. 
+  Usage of too many security tools also expands the attack surface. Hackers especially uses the vulnerabilities of non-secure communicated tools or not regularly updated tools.
+
+- This problem can be solved with implementing eXtended Detection and Response (XDR) to the systems instead of countless security tools.   
+  XDR collects and correlates data across multiple security layers like: endpoints, mail, network, cloud. Changing the business model from short-term potential gains to long-term stability is also helps to overcome this problem.
+
+- After these solutions, management of security tools becomes easier and attack surfaces getting smaller. Also these tools can be operated from a single platfrom.
+
+
+Problem & Solution & Impact 5: 
+
+- Log Management Problems 
+
+- Creating logs of events sometimes become crazier like terabytes of log data can be generated within a week or month. Logs of this size also triggers log management problems.
+  Also log data is diverse and contents of logs vary considerably. We can't ignore the affects of missing logs, irrevelant logs and time gaps.
+  Logs are essential to SOC teams so their integrity and security is also a problem.
+
+- To solve this problem, SOC teams can use proactive log management apporach. Also log normalization is crucial to uniform log data representation and categorize converted log data consistently.
+  For providing integrity and security about logs, they must be send via encrypted ways. 
+
+- With using the proactive log management, log coverage can be widened to additional platforms. Irrevelant log sources are identified and removed. 
+  Log sources against new TTPs can be identified and activated with no delay. Missing logs can be identified on the spot. 
+  Logs that went through the encrypted ways can secure their integrity and attackers not be able to get informations about logs. 
